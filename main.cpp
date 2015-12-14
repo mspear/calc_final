@@ -32,9 +32,7 @@ int main(int argc, char* argv[]) {
            case '+':
              x = stack.pop();
              y = stack.pop();
-
-             x = x + y;
-             stack.push(x);
+             stack.push(x + y);
            break;
 
            case '-':
@@ -80,11 +78,18 @@ int main(int argc, char* argv[]) {
 
            default:
              sin.putback(token);
-             sin >> real;
+             try{
+               sin >> real;
 
-             if (sin.fail()) {
-                cout << "Not a Number" << endl;
-                throw "Malformed Number";
+               if (sin.fail()) {
+                  cout << "Not a Number" << endl;
+                  throw "Malformed Number";
+               }
+             }catch(...){
+              while (!stack.isEmpty()){
+                stack.pop();
+              }
+              break;
              }
 
              int denominator = 1;
@@ -92,15 +97,14 @@ int main(int argc, char* argv[]) {
                 real = real * 10;
                 denominator = denominator * 10;
              }
-
              stack.push(Fraction((int) real, denominator));
            break;
          }
-			
+
 			sin >> token;
 
 		}
-		cout << token << endl;
+		cout << stack.pop() << endl;
 
 
 		// read the next s
@@ -108,7 +112,7 @@ int main(int argc, char* argv[]) {
 		getline(cin, s);
 
 	}
-  delete stack;
+  // delete stack;
 
 
 	return 0;
