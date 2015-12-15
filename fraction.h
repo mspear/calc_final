@@ -16,6 +16,7 @@ public:
 	Fraction subtract(const Fraction&) const;
 	Fraction divide(const Fraction&) const;
 	Fraction multiply(const Fraction&) const;
+	operator double();
 
 
 private:

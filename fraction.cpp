@@ -53,7 +53,9 @@ Fraction Fraction::divide(const Fraction& other) const{
 	int newBottom = bottom * other.numerator();
 	return Fraction(newTop, newBottom);
 }
-
+Fraction::operator double(){
+	return this->asDouble();
+}
 
 Fraction operator+(const Fraction& a, const Fraction& b){
 	return a.add(b);
