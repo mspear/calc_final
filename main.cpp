@@ -11,10 +11,9 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	int num, den;
   double real;
-  bool failed = false;
   char delim, token;
   string s, storVar;
-  map<string, double> stored;
+  map<string, Fraction> stored;
   Fraction x, y;
 	Stack<Fraction> stack;
 
@@ -27,13 +26,13 @@ int main(int argc, char* argv[]) {
 
 		// process s
 		// loop and a half
-
 		istringstream sin(s + " ");
 
 		// Read one character of input
 
 		sin >> token;
-    failed = false;
+    bool failed = false;
+    bool realNum = false;
 
 		while (!sin.eof()) {
 			//process the character
@@ -114,6 +113,7 @@ int main(int argc, char* argv[]) {
 
 
            default:
+             realNum = true;
              sin.putback(token);
              try{
                sin >> real;
@@ -146,7 +146,10 @@ int main(int argc, char* argv[]) {
 		}
     if (!failed){
       stored["it"] = stack.pop();
-		  cout << "It is: " << stored["it"] << endl;
+      if (realNum)
+        cout << "It is: " << stored["it"].asDouble() << endl;
+      else
+		    cout << "It is: " << stored["it"] << endl;
     }
 
 
